@@ -22,8 +22,8 @@ func TestCannotUnrevokeUnlessRevoked(t *testing.T) {
 	require.Equal(t, ck.GetCoins(ctx, addr), sdk.Coins{{sk.GetParams(ctx).BondDenom, initCoins.Sub(amt)}})
 	require.True(t, sdk.NewDecFromInt(amt).Equal(sk.Validator(ctx, addr).GetPower()))
 
-	// assert non-revoked validator can't be unrevoked
-	got = slh(ctx, NewMsgUnrevoke(addr))
-	require.False(t, got.IsOK(), "allowed unrevoke of non-revoked validator")
-	require.Equal(t, sdk.ToABCICode(DefaultCodespace, CodeValidatorNotRevoked), got.Code)
+	// assert non-jailed validator can't be unjailed
+	got = slh(ctx, NewMsgUnjail(addr))
+	require.False(t, got.IsOK(), "allowed unrevoke of non-jailed validator")
+	require.Equal(t, sdk.ToABCICode(DefaultCodespace, CodeValidatorNotJailed), got.Code)
 }

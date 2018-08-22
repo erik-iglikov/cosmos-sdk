@@ -74,7 +74,7 @@ func getValidatorPowerRank(validator types.Validator, pool types.Pool) []byte {
 	powerBytes := []byte(potentialPower.ToLeftPadded(maxDigitsForAccount)) // power big-endian (more powerful validators first)
 
 	revokedBytes := make([]byte, 1)
-	if validator.Revoked {
+	if validator.Jailed {
 		revokedBytes[0] = byte(0x00)
 	} else {
 		revokedBytes[0] = byte(0x01)
